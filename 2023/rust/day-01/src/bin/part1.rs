@@ -8,14 +8,11 @@ fn part1(input: &str) -> String {
     let total: u32 = input
         .lines()
         .map(|line| {
-            // Use filter_map to extract digits from the line
-            let digits: Vec<u32> = line.chars().filter_map(|c| c.to_digit(10)).collect();
-
-            // Use pattern matching to get the first and last digits
-            match digits.as_slice() {
-                [] => 0,                                      // No digits found
-                [num] => (10 * *num) + (*num),                // Only one digit found
-                [first, .., last] => (10 * *first) + (*last), // More than one digit found
+            let mut it = line.chars().filter_map(|c| c.to_digit(10));
+            let first = it.next().expect("no digits in line");
+            match it.last() {
+                Some(last) => 10 * first + last,
+                None => 10 * first + first, // line contains only one digit
             }
         })
         .sum();

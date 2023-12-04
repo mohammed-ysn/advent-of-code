@@ -1,10 +1,10 @@
 fn main() {
     let input = include_str!("./input2.txt");
-    let output = part1(input);
+    let output = part2(input);
     dbg!(output);
 }
 
-fn part1(input: &str) -> String {
+fn part2(input: &str) -> String {
     let total: u32 = input.lines().map(|line| process_line(line)).sum();
 
     total.to_string()
@@ -50,7 +50,7 @@ mod tests {
 
     #[test]
     fn test() {
-        let result = part1(
+        let result = part2(
             "two1nine
 eightwothree
 abcone2threexyz

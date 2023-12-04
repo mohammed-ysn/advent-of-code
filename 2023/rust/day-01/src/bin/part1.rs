@@ -5,25 +5,21 @@ fn main() {
 }
 
 fn part1(input: &str) -> String {
-    let lines: Vec<&str> = input.lines().collect();
-    let mut total = 0;
-    for line in &lines {
-        let mut first_found = false;
-        let mut first_number = 0;
-        let mut last_number = 0;
-        for c in line.chars() {
-            if c.is_digit(10) {
-                if !first_found {
-                    first_number = c.to_digit(10).unwrap();
-                    last_number = first_number;
-                    first_found = true;
-                } else {
-                    last_number = c.to_digit(10).unwrap();
-                }
+    let total: u32 = input
+        .lines()
+        .map(|line| {
+            // Use filter_map to extract digits from the line
+            let digits: Vec<u32> = line.chars().filter_map(|c| c.to_digit(10)).collect();
+
+            // Use pattern matching to get the first and last digits
+            match digits.as_slice() {
+                [] => 0,                                      // No digits found
+                [num] => (10 * *num) + (*num),                // Only one digit found
+                [first, .., last] => (10 * *first) + (*last), // More than one digit found
             }
-        }
-        total += 10 * first_number + last_number;
-    }
+        })
+        .sum();
+
     total.to_string()
 }
 

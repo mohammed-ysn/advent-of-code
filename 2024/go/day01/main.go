@@ -7,6 +7,8 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+
+	"github.com/mohammed-ysn/advent-of-code/2024/go/utils"
 )
 
 func main() {
@@ -61,17 +63,10 @@ func part1(col1 []int, col2 []int) int {
 
 	var sum int
 	for i := 0; i < len(col1); i++ {
-		sum += abs(col1[i], col2[i])
+		sum += utils.AbsDiff(col1[i], col2[i])
 	}
 
 	return sum
-}
-
-func abs(a, b int) int {
-	if a > b {
-		return a - b
-	}
-	return b - a
 }
 
 func part2(col1 []int, col2 []int) int {
